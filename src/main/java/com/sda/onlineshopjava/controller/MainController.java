@@ -70,7 +70,7 @@ public class MainController {
     public String addRegisterPost(@ModelAttribute AccountDto accountDto){
         log.info("apelat register");
         accountService.create(accountDto);
-        return "redirect:/register";
+        return "redirect:/home";
 
     }
 

@@ -35,7 +35,7 @@
                     </div>
                     <div class="card-body">
                         <p th:text="${productDto.category}"></p>
-                        <h4 class="card-product__title"><a th:href="@{/product/{x}(x=${productDto.Id})}" th:text="${productDto.name}"></a></h4>
+                        <h4 class="card-product__title"><a th:href="@{/product/{x}(x=${productDto.id})}" th:text="${productDto.name}"></a></h4>
                         <p class="card-product__price" th:text="${productDto.price + 'RON'}"></p>
                     </div>
                 </div>
