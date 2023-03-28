@@ -1,11 +1,16 @@
 package com.sda.onlineshopjava.controller;
 
 import com.sda.onlineshopjava.dto.ProductDto;
+import com.sda.onlineshopjava.dto.UserAccountDto;
 import com.sda.onlineshopjava.service.ProductService;
+import com.sda.onlineshopjava.service.UserAccountService;
+import com.sda.onlineshopjava.validator.UserAccountValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -17,6 +22,10 @@ import java.util.Optional;
 public class MainController {
     @Autowired
     private ProductService productService;
+    @Autowired
+    private UserAccountService userAccountService;
+    @Autowired
+    private UserAccountValidator userAccountValidator;
 
     @GetMapping("/addProduct")
     public String addProductGet(Model model) {
@@ -55,13 +64,30 @@ public class MainController {
         return "viewProduct";
     }
     @GetMapping("/register")
-    public String registerGet(){
+    public String registerGet(Model model){
+        UserAccountDto userAccountDto = new UserAccountDto();
+        model.addAttribute("userAccountDto", userAccountDto);
         return "register";
     }
+    @PostMapping("/register")
+    public String registerPost(@ModelAttribute UserAccountDto userAccountDto, BindingResult bindingResult){
+        System.out.println(userAccountDto);
+        userAccountValidator.validate(userAccountDto, bindingResult);
+        if (bindingResult.hasErrors()){
+            return "register";
+        }
+        userAccountService.userRegister(userAccountDto);
+        return "redirect:/login";
+    }
+
+
     @GetMapping("/login")
     public String loginGet(){
+
         return "login";
     }
+
+
 
 
 }
