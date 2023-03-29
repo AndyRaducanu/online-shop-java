@@ -15,7 +15,13 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
 
         httpSecurity.authorizeHttpRequests(auth ->{
-            auth.requestMatchers("/register").permitAll();
+            auth.requestMatchers("/register").permitAll(); //dublez asta cu home
+            auth.requestMatchers("/home").hasAnyRole("SELLER", "BUYER");
+            auth.requestMatchers("/addProduct").hasRole("SELLER");
+            auth.requestMatchers("/product/*").hasAnyRole("SELLER", "BUYER");
+            auth.requestMatchers("/cart").hasRole("BUYER");
+
+
         }).httpBasic();
         httpSecurity.csrf().disable()
                 .authorizeHttpRequests()
@@ -35,4 +41,5 @@ public class SecurityConfig {
     public BCryptPasswordEncoder bCryptPasswordEncoder(){
         return new BCryptPasswordEncoder();
     }
+
 }
