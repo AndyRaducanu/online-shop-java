@@ -1,6 +1,7 @@
 package com.sda.onlineshopjava.controller;
 
 import com.sda.onlineshopjava.dto.ProductDto;
+import com.sda.onlineshopjava.dto.ProductQuantityDto;
 import com.sda.onlineshopjava.dto.UserAccountDto;
 import com.sda.onlineshopjava.service.ProductService;
 import com.sda.onlineshopjava.service.UserAccountService;
@@ -8,6 +9,7 @@ import com.sda.onlineshopjava.validator.UserAccountValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.Banner;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -61,8 +63,18 @@ public class MainController {
             return "error";
         }
         model.addAttribute("productDto", optionalProductDto.get());
+        ProductQuantityDto productQuantityDto = new ProductQuantityDto();
+        model.addAttribute("productQuantityDto", productQuantityDto);
         return "viewProduct";
     }
+    @PostMapping("/product/{id}")
+    public String addToCartPost(@ModelAttribute ProductQuantityDto productQuantityDto, @PathVariable(value = "id") String id, Authentication authentication){
+        System.out.println(productQuantityDto);
+        System.out.println("adaug in cos produsul cu id: " +id);
+        System.out.println(authentication.getName());
+        return "redirect:/product/"+ id;
+    }
+
     @GetMapping("/register")
     public String registerGet(Model model){
         UserAccountDto userAccountDto = new UserAccountDto();
@@ -86,6 +98,8 @@ public class MainController {
 
         return "login";
     }
+
+
 
 
 

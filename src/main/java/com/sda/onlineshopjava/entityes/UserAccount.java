@@ -1,9 +1,7 @@
 package com.sda.onlineshopjava.entityes;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.sda.onlineshopjava.enums.UserRole;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,4 +20,6 @@ public class UserAccount {
     private String email;
     private String password;
     private String address;
+    @Enumerated(EnumType.STRING)
+    private UserRole userRole;
 }
