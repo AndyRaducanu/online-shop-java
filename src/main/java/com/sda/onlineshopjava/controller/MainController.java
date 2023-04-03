@@ -3,6 +3,7 @@ package com.sda.onlineshopjava.controller;
 import com.sda.onlineshopjava.dto.ProductDto;
 import com.sda.onlineshopjava.dto.ProductQuantityDto;
 import com.sda.onlineshopjava.dto.UserAccountDto;
+import com.sda.onlineshopjava.service.CartService;
 import com.sda.onlineshopjava.service.ProductService;
 import com.sda.onlineshopjava.service.UserAccountService;
 import com.sda.onlineshopjava.validator.UserAccountValidator;
@@ -27,6 +28,8 @@ public class MainController {
     private UserAccountService userAccountService;
     @Autowired
     private UserAccountValidator userAccountValidator;
+    @Autowired
+    private CartService cartService;
 
     @GetMapping("/addProduct")
     public String addProductGet(Model model) {
@@ -38,7 +41,7 @@ public class MainController {
     }
 
     @PostMapping("/addProduct")
-    public String addProductPost(@ModelAttribute ProductDto productDto,@RequestParam("productImg") MultipartFile multipartFile ) {
+    public String addProductPost(@ModelAttribute ProductDto productDto, @RequestParam("productImg") MultipartFile multipartFile) {
         System.out.println(productDto);
         log.info("apelat add product");
         productService.create(productDto, multipartFile);
@@ -66,25 +69,29 @@ public class MainController {
         model.addAttribute("productQuantityDto", productQuantityDto);
         return "viewProduct";
     }
+
     @PostMapping("/product/{id}")
-    public String addToCartPost(@ModelAttribute ProductQuantityDto productQuantityDto, @PathVariable(value = "id") String id, Authentication authentication){
+    public String addToCartPost(@ModelAttribute ProductQuantityDto productQuantityDto,
+                                @PathVariable(value = "id") String id, Authentication authentication) {
         System.out.println(productQuantityDto);
-        System.out.println("adaug in cos produsul cu id: " +id);
+        System.out.println("adaug in cos produsul cu id: " + id);
         System.out.println(authentication.getName());
-        return "redirect:/product/"+ id;
+        cartService.addToCart(id, productQuantityDto, authentication.getName());
+        return "redirect:/product/" + id;
     }
 
     @GetMapping("/register")
-    public String registerGet(Model model){
+    public String registerGet(Model model) {
         UserAccountDto userAccountDto = new UserAccountDto();
         model.addAttribute("userAccountDto", userAccountDto);
         return "register";
     }
+
     @PostMapping("/register")
-    public String registerPost(@ModelAttribute UserAccountDto userAccountDto, BindingResult bindingResult){
+    public String registerPost(@ModelAttribute UserAccountDto userAccountDto, BindingResult bindingResult) {
         System.out.println(userAccountDto);
         userAccountValidator.validate(userAccountDto, bindingResult);
-        if (bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
             return "register";
         }
         userAccountService.userRegister(userAccountDto);
@@ -93,14 +100,15 @@ public class MainController {
 
 
     @GetMapping("/login")
-    public String loginGet(){
+    public String loginGet() {
 
         return "login";
     }
 
-
-
-
+    @GetMapping("/checkout")
+    public String ckeckoutGet() {
+        return "checkout";
+    }
 
 
 }
