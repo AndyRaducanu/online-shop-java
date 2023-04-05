@@ -2,6 +2,7 @@ package com.sda.onlineshopjava.controller;
 
 import com.sda.onlineshopjava.dto.*;
 import com.sda.onlineshopjava.service.CartService;
+import com.sda.onlineshopjava.service.OrderService;
 import com.sda.onlineshopjava.service.ProductService;
 import com.sda.onlineshopjava.service.UserAccountService;
 import com.sda.onlineshopjava.validator.UserAccountValidator;
@@ -29,6 +30,8 @@ public class MainController {
     private UserAccountValidator userAccountValidator;
     @Autowired
     private CartService cartService;
+    @Autowired
+    private OrderService orderService;
 
     @GetMapping("/addProduct")
     public String addProductGet(Model model) {
@@ -129,6 +132,16 @@ public class MainController {
         model.addAttribute("checkoutDto", checkoutDto);
         return "checkout";
     }
-
+    @GetMapping("/confirmation")
+    public String confirmationGet(){
+        return "error";
+    }
+    @PostMapping("/confirmation")
+    public String confirmationPost(Model model, Authentication authentication){
+        orderService.placeOrder(authentication.getName());
+        CheckoutDto checkoutDto = cartService.getCheckoutDtoByUserEmail(authentication.getName());
+        model.addAttribute("checkoutDto", checkoutDto);
+        return "confirmation";
+    }
 
 }
