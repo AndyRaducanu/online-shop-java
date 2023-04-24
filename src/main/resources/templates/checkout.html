@@ -5,7 +5,7 @@
     <title>Checkout</title>
   <meta charset="UTF-8">
   <title>Product</title>
-  <link rel="icon" href="img/Fevicon.png" type="image/png">
+  <link rel="icon" href="img/Fevicon2.png" type="image/png">
   <link rel="stylesheet" href="vendors/bootstrap/bootstrap.min.css">
   <link rel="stylesheet" href="vendors/fontawesome/css/all.min.css">
   <link rel="stylesheet" href="vendors/themify-icons/themify-icons.css">
@@ -47,7 +47,7 @@
               </div>
             </td>
             <td>
-              <h5 th:text="${cartEntryDto.price + '$'}"></h5>
+              <h5 th:text="${cartEntryDto.price + 'Ron'}"></h5>
             </td>
             <td>
               <div class="product_count">
@@ -60,7 +60,7 @@
               </div>
             </td>
             <td>
-              <h5 th:text="${cartEntryDto.total + '$'}"></h5>
+              <h5 th:text="${cartEntryDto.total + 'Ron'}"></h5>
             </td>
           </tr>
 
@@ -75,7 +75,7 @@
               <h5>Subtotal</h5>
             </td>
             <td>
-              <h5 th:text="${checkoutDto.subtotal + '$'}"></h5>
+              <h5 th:text="${checkoutDto.subtotal + 'Ron'}"></h5>
             </td>
           </tr>
           <tr class="shipping_area">
@@ -89,7 +89,7 @@
               <h5 >Shipping</h5>
             </td>
             <td>
-              <h5 th:text="${checkoutDto.shippingFee + '$'}"></h5>
+              <h5 th:text="${checkoutDto.shippingFee + 'Ron'}"></h5>
             </td>
 
           </tr>
@@ -104,7 +104,7 @@
               <h5 >Total</h5>
             </td>
             <td>
-              <h5 th:text="${checkoutDto.total + '$'}"></h5>
+              <h5 th:text="${checkoutDto.total + 'Ron'}"></h5>
             </td>
 
           </tr>
@@ -134,6 +134,8 @@
   </div>
 </section>
 <!--================End Cart Area =================-->
+<div th:insert="fragments/footer :: footer"></div>
+
 
 <script src="vendors/jquery/jquery-3.2.1.min.js"></script>
 <script src="vendors/bootstrap/bootstrap.bundle.min.js"></script>
