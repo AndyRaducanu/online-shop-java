@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="icon" href="img/Fevicon.png" type="image/png">
+    <link rel="icon" href="img/Fevicon2.png" type="image/png">
     <link rel="stylesheet" href="/vendors/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="/vendors/fontawesome/css/all.min.css">
     <link rel="stylesheet" href="/vendors/themify-icons/themify-icons.css">
@@ -60,25 +60,28 @@
                         <div class="product_count">
                             <label>Quantity:</label>
                             <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
-                                    class="increase items-count" type="button"><i class="ti-angle-left"></i></button>
+                                    class="increase items-count" type="button"><i class="lnr lnr-chevron-up"></i></button>
                             <input th:field="*{quantity}" type="text" name="qty" id="sst" size="2" maxlength="12" value="1" title="Quantity:"
                                    class="input-text qty">
                             <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
-                                    class="reduced items-count" type="button"><i class="ti-angle-right"></i></button>
-                            <button type="submit" class="button primary-btn" href="#">Add to Cart</button>
+                                    class="reduced items-count" type="button"><i class="lnr lnr-chevron-down"></i></button>
+                            <button  type="submit" class="btn btn-primary" href="#">Add to Cart</button>
                         </div>
 
                     </form>
-                    <div class="card_area d-flex align-items-center">
+                 <!--   <div class="card_area d-flex align-items-center">
                         <a class="icon_btn" href="#"><i class="lnr lnr lnr-diamond"></i></a>
                         <a class="icon_btn" href="#"><i class="lnr lnr lnr-heart"></i></a>
-                    </div>
-                </div>
+                    </div>-->
+                <!--</div>-->
             </div>
         </div>
     </div>
 </div>
 <!--================End Single Product Area =================-->
+<div th:insert="fragments/footer :: footer"></div>
+
+
 <script src="/vendors/jquery/jquery-3.2.1.min.js"></script>
 <script src="/vendors/bootstrap/bootstrap.bundle.min.js"></script>
 <script src="/vendors/skrollr.min.js"></script>
